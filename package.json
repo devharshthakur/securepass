@@ -1,0 +1,38 @@
+{
+  "name": "sveltekit-express-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run build && turbo run start",
+    "preview": "turbo run preview",
+    "format": "turbo run format",
+    "format:root": "prettier --write --ignore-unknown --list-different .",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "check": "turbo run check",
+    "prepare": "husky",
+    "docker:start": "docker compose up -d --build"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@11.10.0",
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "lint-staged": {
+    "*.{json,yml,yaml,md}": "prettier --write"
+  },
+  "devDependencies": {
+    "@types/node": "26.1.1",
+    "eslint": "10.7.0",
+    "husky": "9.1.7",
+    "lint-staged": "17.0.8",
+    "prettier": "3.9.5",
+    "tsx": "4.23.1",
+    "turbo": "2.10.4",
+    "typescript": "7.0.2"
+  }
+}

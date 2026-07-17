@@ -1,0 +1,40 @@
+{
+	"name": "web",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev",
+		"start": "node build",
+		"build": "rm -rf build && vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint .",
+		"lint": "eslint .",
+		"format": "prettier --write --ignore-unknown --list-different ."
+	},
+	"lint-staged": {
+		"*.{js,ts,svelte}": [
+			"eslint",
+			"prettier --write"
+		],
+		"*.{json,css,md}": "prettier --experimental-cli --write"
+	},
+	"devDependencies": {
+		"@packages/eslint-config": "workspace:*",
+		"@packages/prettier-config": "workspace:*",
+		"@sveltejs/adapter-node": "5.5.7",
+		"@sveltejs/kit": "2.69.2",
+		"@sveltejs/vite-plugin-svelte": "7.2.0",
+		"@tailwindcss/forms": "0.5.11",
+		"@tailwindcss/typography": "0.5.20",
+		"@tailwindcss/vite": "4.3.2",
+		"eslint-plugin-svelte": "3.20.0",
+		"prettier-plugin-svelte": "4.1.1",
+		"prettier-plugin-tailwindcss": "0.8.0",
+		"svelte": "5.56.4",
+		"svelte-check": "4.7.2",
+		"tailwindcss": "4.3.2",
+		"vite": "8.1.4"
+	}
+}

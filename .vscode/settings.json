@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "biome.enabled": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

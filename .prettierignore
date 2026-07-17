@@ -1,0 +1,24 @@
+# Package Managers
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+bun.lock
+bun.lockb
+
+# Dependencies
+node_modules
+
+# Build Output
+dist
+build
+.svelte-kit
+.turbo
+coverage
+
+# Apps — each handles its own formatting with app-specific config/plugins
+apps
+
+# Miscellaneous
+.husky
+temp
+.DS_Store

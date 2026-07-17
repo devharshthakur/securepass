@@ -1,0 +1,8 @@
+import { getMessage } from '$services/example.js';
+import { Router } from 'express';
+
+export const router: Router = Router();
+
+router.get('/health', (_req, res) => {
+	res.json({ status: 'ok', message: getMessage() });
+});

@@ -1,0 +1,14 @@
+{
+  "name": "@packages/prettier-config",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "format": "prettier --write --ignore-unknown --list-different ."
+  },
+  "exports": {
+    ".": "./index.js"
+  },
+  "peerDependencies": {
+    "prettier": "3.8.3"
+  }
+}

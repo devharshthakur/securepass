@@ -1,0 +1,37 @@
+{
+	"name": "api",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "concurrently \"tsc --watch --noEmit\" \"nodemon\"",
+		"build": "tsdown",
+		"start": "tsdown && node build/main.js",
+		"typecheck": "tsc --project tsconfig.json --noEmit",
+		"check": "tsc --project tsconfig.json --noEmit && eslint .",
+		"lint": "eslint .",
+		"format": "prettier --write --ignore-unknown --list-different ."
+	},
+	"lint-staged": {
+		"*.{js,ts}": [
+			"eslint",
+			"prettier --write"
+		],
+		"*.{json,md}": "prettier --write"
+	},
+	"dependencies": {
+		"cors": "2.8.6",
+		"dotenv": "17.4.2",
+		"express": "5.2.1",
+		"helmet": "8.3.0",
+		"zod": "4.4.3"
+	},
+	"devDependencies": {
+		"@packages/eslint-config": "workspace:*",
+		"@packages/prettier-config": "workspace:*",
+		"@types/cors": "2.8.19",
+		"@types/express": "5.0.6",
+		"concurrently": "10.0.3",
+		"nodemon": "3.1.14",
+		"tsdown": "0.22.7"
+	}
+}

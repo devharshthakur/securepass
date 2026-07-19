@@ -15,9 +15,6 @@ build
 .turbo
 coverage
 
-# Apps — each handles its own formatting with app-specific config/plugins
-apps
-
 # Miscellaneous
 .husky
 temp

@@ -23,10 +23,10 @@ vite.config.ts       # SvelteKit + Vite plugin configuration (sveltekit() call)
 The web app uses environment variables for runtime configuration.
 Copy `apps/web/.env.example` to `apps/web/.env` to get started.
 
-| Variable         | Required | Default               | Description                              |
-| ---------------- | -------- | --------------------- | ---------------------------------------- |
-| `PUBLIC_API_URL` | Yes      | `http://localhost:8000` | Base URL of the API (browser-accessible). |
-| `ORIGIN`         | No       | —                     | Deployed app URL (adapter-node production). |
+| Variable         | Required | Default                 | Description                                 |
+| ---------------- | -------- | ----------------------- | ------------------------------------------- |
+| `PUBLIC_API_URL` | Yes      | `http://localhost:8000` | Base URL of the API (browser-accessible).   |
+| `ORIGIN`         | No       | —                       | Deployed app URL (adapter-node production). |
 
 Environment variables prefixed with `PUBLIC_` are exposed to browser code via
 `$env/static/public`. See the

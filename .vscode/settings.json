@@ -3,5 +3,8 @@
     "*.css": "tailwindcss"
   },
   "biome.enabled": false,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "material-icon-theme.folders.associations": {
+    "components": "svelte"
+  }
 }

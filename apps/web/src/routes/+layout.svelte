@@ -1,4 +1,5 @@
 <script lang="ts">
+	import NavBar from '$lib/components/NavBar.svelte';
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 
@@ -6,4 +7,8 @@
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
-{@render children()}
+
+<div class="flex min-h-svh flex-col">
+	<NavBar />
+	{@render children()}
+</div>

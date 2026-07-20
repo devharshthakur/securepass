@@ -4,11 +4,10 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
 	import { resolve } from '$app/paths';
-
 	const id = $props.id();
 </script>
 
-<div class="flex min-h-svh flex-col items-center justify-center px-6 py-12">
+<div class="flex flex-1 flex-col items-center justify-center px-6 py-12">
 	<div class="flex w-full max-w-sm flex-col gap-6">
 		<form>
 			<Field.FieldGroup>

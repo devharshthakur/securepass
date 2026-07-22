@@ -7,6 +7,9 @@ export default defineConfig({
 	platform: 'node',
 	target: 'esnext',
 	unbundle: true,
+	deps: {
+		alwaysBundle: ['@packages/db']
+	},
 	clean: true,
 	outExtensions: () => ({ js: '.js' }),
 	shims: true,

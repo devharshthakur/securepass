@@ -14,6 +14,11 @@
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
     "prepare": "husky",
+    "db:start": "docker compose -f docker-compose.db.yml up -d",
+    "db:stop": "docker compose -f docker-compose.db.yml down",
+    "db:generate": "turbo run db:generate",
+    "db:migrate": "turbo run db:migrate --",
+    "db:deploy": "turbo run db:deploy",
     "docker:start": "docker compose up -d --build"
   },
   "license": "MIT",

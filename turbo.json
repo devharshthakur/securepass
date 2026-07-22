@@ -1,11 +1,13 @@
 {
   "$schema": "https://turborepo.com/schema.json",
+  "globalEnv": ["DATABASE_URL"],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^db:generate"],
       "outputs": ["build/**", ".svelte-kit/**", "dist/**"]
     },
     "dev": {
+      "dependsOn": ["^db:generate"],
       "cache": false,
       "persistent": true
     },
@@ -17,12 +19,8 @@
       "cache": false,
       "persistent": true
     },
-    "//#format:root": {
-      "cache": false
-    },
     "format": {
-      "cache": false,
-      "dependsOn": ["//#format:root"]
+      "cache": false
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -32,6 +30,15 @@
     },
     "check": {
       "dependsOn": ["^check"]
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:deploy": {
+      "cache": false
     }
   }
 }

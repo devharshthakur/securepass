@@ -1,4 +1,25 @@
 services:
+  db:
+    build:
+      context: .
+      dockerfile: packages/database/Dockerfile
+    container_name: securepass-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: securepass
+    ports:
+      - "5432:5432"
+    volumes:
+      - securepass-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "securepass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
   api:
     build:
       context: .
@@ -6,8 +27,12 @@ services:
     environment:
       NODE_ENV: production
       PORT: 8000
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/securepass
     ports:
       - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
     healthcheck:
       test:
@@ -33,9 +58,13 @@ services:
       HOST: 0.0.0.0
       PORT: 4173
       ORIGIN: http://localhost:4173
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/securepass
     ports:
       - "4173:4173"
     depends_on:
       api:
         condition: service_healthy
     restart: unless-stopped
+
+volumes:
+  securepass-pgdata:

@@ -32,5 +32,8 @@ coverage
 # TypeScript
 *.tsbuildinfo
 
+# Prisma generated client (build artifact — regenerated via db:generate)
+packages/database/generated
+
 # Temp (test-setup output)
 temp

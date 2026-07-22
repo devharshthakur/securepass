@@ -1,6 +1,6 @@
-import { prisma } from '@packages/db';
+import { db } from '$lib/server/db';
 
 export async function load() {
-	const user = await prisma.user.findFirst();
+	const user = await db.user.findFirst();
 	return { greeting: user?.name ?? 'No user added yet' };
 }

@@ -4,3 +4,5 @@ packages:
 allowBuilds:
   esbuild: true
   "@tailwindcss/oxide": true
+  "@prisma/engines": true
+  prisma: true

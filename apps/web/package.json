@@ -21,7 +21,7 @@
 		"*.{json,css,md}": "prettier --experimental-cli --write"
 	},
 	"devDependencies": {
-		"@fontsource-variable/geist": "5.3.0",
+		"@fontsource/ibm-plex-mono": "5.3.0",
 		"@iconify/svelte": "5.2.2",
 		"@internationalized/date": "3.12.2",
 		"@lucide/svelte": "1.25.0",

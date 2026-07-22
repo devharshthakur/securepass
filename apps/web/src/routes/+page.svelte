@@ -5,7 +5,7 @@
 	import { resolve } from '$app/paths';
 </script>
 
-<main class="flex flex-1 flex-col items-center justify-center gap-8 px-6 text-center">
+<main class="mb-32 flex flex-1 flex-col items-center justify-center gap-6 px-6 text-center">
 	<div class="flex flex-col items-center gap-3">
 		<h1 class="text-4xl font-bold tracking-tight sm:text-5xl">securepass</h1>
 		<p class="max-w-md text-muted-foreground">

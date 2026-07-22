@@ -16,6 +16,7 @@ FROM base AS api
 
 COPY . .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm --filter @packages/db db:generate
 RUN pnpm --filter api build
 
 USER node
@@ -26,6 +27,7 @@ FROM base AS web
 
 COPY . .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm --filter @packages/db db:generate
 RUN pnpm --filter web build
 
 USER node

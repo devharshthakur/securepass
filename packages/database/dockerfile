@@ -1,0 +1,9 @@
+# syntax=docker/dockerfile:1.7
+
+FROM postgres:17-alpine
+
+# Optional: Copy init scripts if needed
+# COPY init-sql/ /docker-entrypoint-initdb.d/
+
+HEALTHCHECK --interval=10s --timeout=5s --retries=5 \
+  CMD pg_isready -U "${POSTGRES_USER:-postgres}" -d "${POSTGRES_DB:-securepass}"

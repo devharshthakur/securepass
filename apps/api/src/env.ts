@@ -5,7 +5,8 @@ const DEFAULT_CORS_ORIGINS = ['http://localhost:5173', 'http://localhost:4173'].
 
 const envSchema = z.object({
 	PORT: z.coerce.number().int().min(1).max(65535),
-	CORS_ORIGIN: z.string().default(DEFAULT_CORS_ORIGINS)
+	CORS_ORIGIN: z.string().default(DEFAULT_CORS_ORIGINS),
+	ENCRYPTION_KEY: z.string().min(1, 'Required for credential encryption')
 });
 
 const result = envSchema.safeParse(process.env);

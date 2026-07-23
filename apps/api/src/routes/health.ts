@@ -1,8 +1,7 @@
-import { getMessage } from '$services/example.js';
 import { Router } from 'express';
 
-export const router: Router = Router();
+export const healthRouter: Router = Router();
 
-router.get('/health', (_req, res) => {
-	res.json({ status: 'ok', message: getMessage() });
+healthRouter.get('/health', (_req, res) => {
+	res.json({ status: 'ok', message: 'All systems working fine' });
 });

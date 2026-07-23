@@ -1,10 +1,14 @@
 import { errorHandler } from '$middlewares/errorHandler.js';
 import { Router } from 'express';
-import { router as healthRouter } from '$routes/health.js';
-import { router as usersRouter } from '$routes/users.js';
+import { healthRouter } from '$routes/health.js';
+import { addRouter } from '$routes/add.js';
+import { searchRouter } from '$routes/search.js';
+import { showRouter } from '$routes/show.js';
 
 export const router = Router();
 
 router.use(healthRouter);
-router.use(usersRouter);
+router.use(addRouter);
+router.use(showRouter);
+router.use(searchRouter);
 router.use(errorHandler);

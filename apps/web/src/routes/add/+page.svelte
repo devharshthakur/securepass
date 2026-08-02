@@ -4,6 +4,7 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
 	import { resolve } from '$app/paths';
+
 	const id = $props.id();
 </script>
 

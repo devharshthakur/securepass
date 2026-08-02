@@ -1,7 +1,7 @@
 services:
   db:
     build:
-      context: .
+      context: ..
       dockerfile: packages/database/Dockerfile
     container_name: securepass-postgres
     environment:

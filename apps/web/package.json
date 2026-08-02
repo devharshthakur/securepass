@@ -18,7 +18,7 @@
 			"eslint",
 			"prettier --write"
 		],
-		"*.{json,css,md}": "prettier --experimental-cli --write"
+		"*.{json,css,md}": "prettier --write"
 	},
 	"devDependencies": {
 		"@fontsource/ibm-plex-mono": "5.3.0",

@@ -31,13 +31,13 @@
     "*.{json,yml,yaml,md}": "prettier --write"
   },
   "devDependencies": {
-    "@types/node": "26.1.1",
-    "eslint": "10.7.0",
+    "@types/node": "26.1.2",
+    "eslint": "10.8.0",
     "husky": "9.1.7",
-    "lint-staged": "17.1.0",
+    "lint-staged": "17.3.0",
     "prettier": "3.9.6",
     "tsx": "4.23.1",
-    "turbo": "2.10.5",
-    "typescript": "6.0.3"
+    "turbo": "2.10.8",
+    "typescript": "^6"
   }
 }

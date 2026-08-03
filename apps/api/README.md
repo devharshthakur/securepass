@@ -23,9 +23,12 @@ src/
 
 ## Environment
 
-The API validates its environment on startup. Current required variable:
+The API validates its environment on startup. Required variables:
 
 - `PORT` — HTTP port for the Express server.
+- `CORS_ORIGIN` — comma-separated list of allowed origins.
+- `DATABASE_URL` — PostgreSQL connection string.
+- `ENCRYPTION_KEY` — base64 of 32 random bytes used for `aes-256-gcm` credential encryption. Generate with `openssl rand -base64 32`; changing it invalidates previously encrypted credentials.
 
 ## Commands
 

@@ -1,0 +1,36 @@
+import { searchBodySchema, searchResponseSchema } from '@packages/shared';
+import { error } from '@sveltejs/kit';
+import { query } from '$app/server';
+import { PUBLIC_API_URL } from '$app/env/public';
+
+const apiUrl = PUBLIC_API_URL.replace(/\/+$/, '');
+
+export const searchEntries = query(searchBodySchema, async (data) => {
+	let response: Response;
+
+	try {
+		response = await fetch(`${apiUrl}/search`, {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		});
+	} catch {
+		error(502, 'Unable to connect to the API');
+	}
+
+	if (!response.ok) {
+		const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+		const status = response.status >= 400 && response.status <= 599 ? response.status : 502;
+
+		error(status, payload?.error ?? 'Unable to search passwords');
+	}
+
+	const payload = searchResponseSchema.safeParse(await response.json().catch(() => null));
+	if (!payload.success) {
+		error(502, 'Invalid response from the API');
+	}
+
+	return payload.data;
+});

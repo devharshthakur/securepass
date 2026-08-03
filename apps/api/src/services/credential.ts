@@ -11,7 +11,13 @@ interface EncryptedPayload {
 	data: string;
 }
 
-const encryptionKey = env.ENCRYPTION_KEY;
+const encryptionKey = Buffer.from(env.ENCRYPTION_KEY, 'base64');
+
+if (encryptionKey.length !== 32) {
+	throw new Error(
+		`ENCRYPTION_KEY must decode to 32 bytes for ${ALGORITHM}; got ${encryptionKey.length}. Regenerate with: openssl rand -base64 32`
+	);
+}
 
 export function encrypt(plaintext: string): string {
 	const iv = randomBytes(IV_LENGTH);

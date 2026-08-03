@@ -12,8 +12,6 @@ export const variables = defineEnvVars({
 	PUBLIC_API_URL: {
 		public: true,
 		description: 'Base URL of the API server',
-		schema: building
-			? z.string().url().optional()
-			: z.string().url().default('http://localhost:8000')
+		schema: z.string().url().default('http://localhost:8000')
 	}
 });

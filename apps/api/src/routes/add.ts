@@ -1,13 +1,8 @@
 import { prisma } from '@packages/db';
+import { addBodySchema } from '@packages/shared';
 import { Router } from 'express';
 import { z } from 'zod';
 import { encrypt } from '$services/credential.js';
-
-const addBodySchema = z.object({
-	label: z.string().min(1).max(255),
-	username: z.string().min(1).max(2048),
-	password: z.string().min(1).max(4096)
-});
 
 export const addRouter: Router = Router();
 

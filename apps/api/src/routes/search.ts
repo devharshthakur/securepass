@@ -1,36 +1,36 @@
 import { decrypt } from '$services/credential.js';
 import { prisma } from '@packages/db';
+import { searchBodySchema } from '@packages/shared';
 import { Router } from 'express';
-import z from 'zod';
+import { z } from 'zod';
 
 export const searchRouter: Router = Router();
 
-const searchSchema = z.object({
-	label: z.string().min(1).max(255)
-});
-
-searchRouter.post('/search', async (req, res) => {
-	const body = searchSchema.safeParse(req.body);
-	if (!body.success) {
-		return res.json({
-			error: body.error.flatten()
+searchRouter.post('/search', async (req, res, next) => {
+	try {
+		const body = searchBodySchema.parse(req.body);
+		const searchResults = await prisma.credential.findMany({
+			where: {
+				label: {
+					contains: body.label
+				}
+			},
+			orderBy: [{ label: 'asc' }, { id: 'asc' }]
 		});
-	}
 
-	const searchResult = await prisma.credential.findMany({
-		where: {
-			label: {
-				contains: body.data.label
-			}
+		return res.json({
+			results: searchResults.map((credential) => ({
+				id: credential.id,
+				label: credential.label,
+				username: decrypt(credential.encryptedUsername),
+				password: decrypt(credential.encryptedPassword)
+			}))
+		});
+	} catch (err) {
+		if (err instanceof z.ZodError) {
+			return res.status(400).json({ error: 'Validation failed', details: err.issues });
 		}
-	});
 
-	const username = decrypt(searchResult[0].encryptedUsername);
-	const password = decrypt(searchResult[0].encryptedPassword);
-
-	return res.json({
-		label: body.data.label,
-		username: username,
-		password: password
-	});
+		return next(err);
+	}
 });

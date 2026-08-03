@@ -50,6 +50,7 @@
 	"dependencies": {
 		"@iconify-svelte/mdi": "1.0.2",
 		"@packages/db": "workspace:*",
+		"@packages/shared": "workspace:*",
 		"zod": "4.4.3"
 	}
 }

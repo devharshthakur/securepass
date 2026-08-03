@@ -9,6 +9,7 @@
     "db:deploy": "prisma migrate deploy",
     "db:start": "docker compose up -d",
     "db:stop": "docker compose down",
+    "db:studio": "prisma studio",
     "format": "prisma format"
   },
   "exports": {

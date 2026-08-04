@@ -15,7 +15,7 @@
     "check": "turbo run check",
     "prepare": "husky",
     "db:start": "docker compose -f packages/db/docker-compose.yml up -d",
-    "db:stop": "docker compose -f db/docker-compose.yml down",
+    "db:stop": "docker compose -f packages/db/docker-compose.yml down",
     "db:generate": "turbo run db:generate",
     "db:migrate": "turbo run db:migrate --",
     "db:deploy": "turbo run db:deploy",

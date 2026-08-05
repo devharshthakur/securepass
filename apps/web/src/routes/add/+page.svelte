@@ -70,9 +70,6 @@
 						Password added successfully.
 					</Field.FieldDescription>
 				{/if}
-				<Field.Field>
-					<Button variant="outline" href="/">Cancel</Button>
-				</Field.Field>
 			</Field.FieldGroup>
 		</form>
 	</div>

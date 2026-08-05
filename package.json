@@ -15,7 +15,7 @@
     "check": "turbo run check",
     "prepare": "husky",
     "db:start": "docker compose -f packages/db/docker-compose.yml up -d",
-    "db:stop": "docker compose -f db/docker-compose.yml down",
+    "db:stop": "docker compose -f packages/db/docker-compose.yml down",
     "db:generate": "turbo run db:generate",
     "db:migrate": "turbo run db:migrate --",
     "db:deploy": "turbo run db:deploy",
@@ -38,6 +38,6 @@
     "prettier": "3.9.6",
     "tsx": "4.23.1",
     "turbo": "2.10.8",
-    "typescript": "^6"
+    "typescript": "^6.0.3"
   }
 }

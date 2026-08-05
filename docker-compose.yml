@@ -2,8 +2,8 @@ services:
   db:
     build:
       context: .
-      dockerfile: packages/database/Dockerfile
-    container_name: securepass-postgres
+      dockerfile: packages/db/dockerfile
+    container_name: securepass-prod-postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -11,7 +11,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - securepass-pgdata:/var/lib/postgresql/data
+      - securepass-prod-pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres", "-d", "securepass"]
       interval: 10s
@@ -67,4 +67,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  securepass-pgdata:
+  securepass-prod-pgdata:

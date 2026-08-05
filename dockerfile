@@ -2,7 +2,7 @@
 
 FROM node:24-slim AS base
 
-RUN apt-get update && apt-get install -y wget --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y wget openssl --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -14,6 +14,9 @@ WORKDIR /usr/src/app
 
 FROM base AS api
 
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
 COPY . .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm --filter @packages/db db:generate
@@ -24,6 +27,9 @@ EXPOSE 8000
 CMD ["node", "apps/api/build/main.js"]
 
 FROM base AS web
+
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
 
 COPY . .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile

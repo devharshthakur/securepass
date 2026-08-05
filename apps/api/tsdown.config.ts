@@ -8,7 +8,8 @@ export default defineConfig({
 	target: 'esnext',
 	unbundle: true,
 	deps: {
-		alwaysBundle: ['@packages/db']
+		alwaysBundle: ['@packages/db', '@packages/shared'],
+		neverBundle: ['pg']
 	},
 	clean: true,
 	outExtensions: () => ({ js: '.js' }),

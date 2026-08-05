@@ -24,10 +24,13 @@ services:
     build:
       context: .
       target: api
+      args:
+        DATABASE_URL: postgresql://postgres:postgres@db:5432/securepass
     environment:
       NODE_ENV: production
       PORT: 8000
       DATABASE_URL: postgresql://postgres:postgres@db:5432/securepass
+      ENCRYPTION_KEY: sqIa6/Ucc4ULQ6P7b+h9CaTJJCSxpREmvJf0mci1MMk=
     ports:
       - "8000:8000"
     depends_on:
@@ -53,6 +56,8 @@ services:
     build:
       context: .
       target: web
+      args:
+        DATABASE_URL: postgresql://postgres:postgres@db:5432/securepass
     environment:
       NODE_ENV: production
       HOST: 0.0.0.0

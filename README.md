@@ -76,26 +76,6 @@ The project is a pnpm + turbo monorepo: a web app for the UI, an API that handle
 
    The web app runs at `http://localhost:5173` and the API at `http://localhost:8000`.
 
-## Commands
-
-Run from the repository root.
-
-| Command            | Purpose                             |
-| ------------------ | ----------------------------------- |
-| `pnpm dev`         | Start all dev servers (web + API).  |
-| `pnpm build`       | Build all apps.                     |
-| `pnpm start`       | Build, then run production servers. |
-| `pnpm preview`     | Preview production builds.          |
-| `pnpm check`       | Run typecheck and lint.             |
-| `pnpm lint`        | Run ESLint.                         |
-| `pnpm typecheck`   | Validate TypeScript types.          |
-| `pnpm format`      | Format the workspace.               |
-| `pnpm db:start`    | Start the dev Postgres container.   |
-| `pnpm db:stop`     | Stop the dev Postgres container.    |
-| `pnpm db:migrate`  | Run a dev migration.                |
-| `pnpm db:deploy`   | Apply migrations in production.     |
-| `pnpm db:generate` | Regenerate the Prisma client.       |
-
 ## Docker
 
 Run the whole stack in production mode (db, API, and web):

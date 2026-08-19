@@ -10,6 +10,6 @@
 		"prettier-plugin-sh": "0.19.0"
 	},
 	"lint-staged": {
-		"*.{json,yml,yaml,md}": "prettier --write"
+		"*.{json,yml,yaml,md}": "prettier --write --list-different --ignore-unknown"
 	}
 }

@@ -15,23 +15,11 @@ A simple passwords storage/manager. Cryptography college project.
 
 ## About
 
-securepass is a self-hosted password manager I built for myself. It keeps things simple: I store a credential (label, username, password) and search for it whenever I need it.
+securepass is a simple password manager I built as my cryptography mini project. It is pretty simple and straight forward: I store a credential (label, username, password) and search for it whenever I need it.
 
-Credentials are encrypted at rest with AES-256-GCM before they're stored. Every entry gets its own random IV and authentication tag, and the encryption key lives only in my environment, never in the database.
+Credentials are encrypted at rest with AES-256-GCM(using bcrypt) before they're stored. Every entry gets its own random IV and authentication tag, and the encryption key lives only in my environment, never in the database.
 
-The project is a pnpm + turbo monorepo: a web app for the UI, an API that handles credentials, and a shared database package. It grew out of a starter template I made, but now it's just this app.
-
-## Features
-
-- Add credentials with a label, username, and password
-- Search credentials by label, decrypted on demand
-- All secrets encrypted at rest with AES-256-GCM
-
-## Requirements
-
-- Node.js 24.x
-- pnpm 11+
-- Docker (for Postgres)
+The project is a pnpm + turbo monorepo. It contains a web app(frontend) for the UI, an API(express based backend) that handles credentials, and a shared database package. It grew out of a starter template I made, but now it's just this app.
 
 ## Getting Started
 
@@ -56,13 +44,13 @@ The project is a pnpm + turbo monorepo: a web app for the UI, an API that handle
 
    > Changing `ENCRYPTION_KEY` later makes previously stored credentials unreadable.
 
-4. Configure the web app:
+4. Configure the web app environment vars:
 
    ```bash
    cp apps/web/.env.example apps/web/.env
    ```
 
-5. Apply migrations:
+5. Apply database migrations:
 
    ```bash
    pnpm db:migrate
@@ -78,7 +66,7 @@ The project is a pnpm + turbo monorepo: a web app for the UI, an API that handle
 
 ## Docker
 
-Run the whole stack in production mode (db, API, and web):
+You can run the whole stack in production mode via docker (db, API, and web):
 
 ```bash
 pnpm docker:start

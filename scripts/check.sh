@@ -6,96 +6,120 @@
 #   ./scripts/check.sh           report only (never prompts, exits 0)
 #   ./scripts/check.sh --update  ask approval per project, then update
 #
-# TypeScript is always installed as typescript@^6 during updates: the TS 7
-# native rewrite has no API support in typescript-eslint yet, so 7.x must
-# never be installed. Informational only: always exits 0.
+# Updates run `pnpm update` with per-package @latest specs: every dep is
+# exact-pinned, so @latest is required to bump. (--latest is avoided because
+# pnpm rejects it combined with version specs like typescript@^6.) Updates are
+# scoped per project with `--filter <name>` so packages/ and apps/ package.json
+# files are actually updated, not just the root lockfile. TypeScript is always
+# installed as typescript@^6 during updates: the TS 7 native rewrite has no API
+# support in typescript-eslint yet, so 7.x must never be installed.
+# Informational only: always exits 0.
 
 set -euo pipefail
 
 update=0
 case "${1:-}" in
-  --update) update=1 ;;
-  "") ;;
-  *)
-    echo "usage: $0 [--update]" >&2
-    exit 1
-    ;;
+	--update) update=1 ;;
+	"") ;;
+	*)
+		echo "usage: $0 [--update]" >&2
+		exit 1
+		;;
 esac
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-projects=("." packages/*/ apps/*/)
+projects=("." packages/*/ apps/*/ scripts/)
 
 total=0
 outdated=0
 updated=0
 
 for project in "${projects[@]}"; do
-  [[ -f "$project/package.json" ]] || continue
-  total=$((total + 1))
+	[[ -f "$project/package.json" ]] || continue
+	total=$((total + 1))
 
-  if [[ "$project" == "." ]]; then
-    label="root"
-  else
-    label="${project%/}"
-  fi
+	if [[ "$project" == "." ]]; then
+		label="root"
+	else
+		label="${project%/}"
+	fi
 
-  echo
-  echo "===== $label ====="
+	echo
+	echo "===== $label ====="
 
-  # pnpm outdated exits 1 when updates exist, 0 when up to date.
-  if (cd "$project" && pnpm outdated); then
-    echo "(up to date)"
-    continue
-  else
-    # $? inside else is the if-condition's exit code, not the if's (which
-    # would be 0 when no branch ran).
-    code=$?
-    if ((code != 1)); then
-      echo "error: pnpm outdated failed in $label (exit $code)" >&2
-      continue
-    fi
-  fi
+	# pnpm outdated exits 1 when updates exist, 0 when up to date.
+	if (cd "$project" && pnpm outdated); then
+		echo "(up to date)"
+		continue
+	else
+		# $? inside else is the if-condition's exit code, not the if's (which
+		# would be 0 when no branch ran).
+		code=$?
+		if ((code != 1)); then
+			echo "error: pnpm outdated failed in $label (exit $code)" >&2
+			continue
+		fi
+	fi
 
-  outdated=$((outdated + 1))
+	outdated=$((outdated + 1))
 
-  if ((update == 0)); then
-    continue
-  fi
+	if ((update == 0)); then
+		continue
+	fi
 
-  # Build update specs from --json. typescript is always pinned to 6.x.
-  specs="$(cd "$project" && pnpm outdated --json 2>/dev/null | node -e '
+	# Package name for --filter scoping. Root is the workspace root, no filter.
+	if [[ "$project" == "." ]]; then
+		pkg_name=""
+	else
+		pkg_name="$(node -p "require('./$project/package.json').name" 2> /dev/null || true)"
+		if [[ -z "$pkg_name" ]]; then
+			echo "error: could not read package name for $label" >&2
+			continue
+		fi
+	fi
+
+	# Build update specs from --json. typescript is always pinned to 6.x.
+	specs="$(cd "$project" && pnpm outdated --json 2> /dev/null | node -e '
     let s = "";
     process.stdin.on("data", (d) => (s += d));
     process.stdin.on("end", () => {
       const data = JSON.parse(s);
       process.stdout.write(
         Object.keys(data)
-          .map((name) => (name === "typescript" ? "typescript@^6" : name))
+          .map((name) => (name === "typescript" ? "typescript@^6" : name + "@latest"))
           .join(" "),
       );
     });
   ' || true)"
 
-  if [[ -z "$specs" ]]; then
-    echo "error: could not read outdated list for $label" >&2
-    continue
-  fi
+	if [[ -z "$specs" ]]; then
+		echo "error: could not read outdated list for $label" >&2
+		continue
+	fi
 
-  read -r -p "Update in $label ($specs)? [y/N] " answer || answer="n"
-  case "$answer" in
-    [yY] | [yY][eE][sS])
-      # $specs is intentionally word-split into pnpm arguments.
-      if (cd "$project" && pnpm update $specs); then
-        updated=$((updated + 1))
-      else
-        echo "error: pnpm update failed in $label" >&2
-      fi
-      ;;
-    *)
-      echo "skipped $label"
-      ;;
-  esac
+	read -r -p "Update in $label ($specs)? [y/N] " answer || answer="n"
+	case "$answer" in
+		[yY] | [yY][eE][sS])
+			# $specs is intentionally word-split into pnpm arguments. Specs carry
+			# @latest (or typescript@^6) because --latest cannot be combined with
+			# explicit version specs; --filter scopes the update to this
+			# workspace package instead of the whole workspace.
+			if [[ -z "$pkg_name" ]]; then
+				run=(pnpm update $specs)
+			else
+				run=(pnpm --filter "$pkg_name" update $specs)
+			fi
+			if "${run[@]}"; then
+				updated=$((updated + 1))
+			else
+				echo "error: pnpm update failed in $label" >&2
+			fi
+			;;
+		*)
+			echo "skipped $label"
+			;;
+	esac
 done
 
 echo

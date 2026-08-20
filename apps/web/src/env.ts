@@ -10,7 +10,6 @@ export const variables = defineEnvVars({
 			: z.url().startsWith('postgresql://')
 	},
 	PUBLIC_API_URL: {
-		public: true,
 		description: 'Base URL of the API server',
 		schema: z.url().default('http://localhost:8000')
 	}

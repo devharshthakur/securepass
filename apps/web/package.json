@@ -11,7 +11,8 @@
 		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && eslint .",
 		"lint": "eslint .",
-		"format": "prettier --write --ignore-unknown --list-different ."
+		"format": "prettier --write --ignore-unknown --list-different .",
+		"clean": "rm -rf node_modules build .svelte-kit"
 	},
 	"lint-staged": {
 		"*.{js,ts,svelte}": [
@@ -51,6 +52,7 @@
 		"@iconify-svelte/mdi": "1.0.2",
 		"@packages/db": "workspace:*",
 		"@packages/shared": "workspace:*",
+		"better-auth": "^1.7.1",
 		"zod": "4.4.3"
 	}
 }

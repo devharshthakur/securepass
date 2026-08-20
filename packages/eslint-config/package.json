@@ -6,7 +6,8 @@
     ".": "./index.js"
   },
   "scripts": {
-    "format": "prettier --write --ignore-unknown --list-different ."
+    "format": "prettier --write --ignore-unknown --list-different .",
+    "clean": "rm -rf node_modules"
   },
   "dependencies": {
     "@eslint/js": "10.0.1",

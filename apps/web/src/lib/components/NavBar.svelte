@@ -1,26 +1,33 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import ShieldIcon from '@lucide/svelte/icons/shield';
+	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
 	import GithubIcon from '@iconify-svelte/mdi/github';
 	import { Button } from '$lib/components/ui/button';
 </script>
 
-<header class="flex items-center justify-between px-6 py-4">
-	<a href={resolve('/')} class="flex items-center gap-2 font-semibold">
-		<ShieldIcon class="size-5" />
-		securepass
-	</a>
-	<nav class="flex items-center gap-2">
-		<Button
-			variant="ghost"
-			size="icon"
-			href="https://github.com/devharshthakur"
-			target="_blank"
-			rel="noopener noreferrer"
-			aria-label="GitHub"
+<header>
+	<div class="flex items-center justify-between px-6 py-3">
+		<a
+			href={resolve('/')}
+			class="flex items-center gap-2.5 text-sm font-semibold tracking-tight"
 		>
-			<GithubIcon height="18" class="size-5" />
-		</Button>
-		<Button variant="ghost" href={resolve('/about')} class="hover:bg-background">About</Button>
-	</nav>
+			<span class="flex size-8 items-center justify-center rounded-md bg-muted/50">
+				<GalleryVerticalEndIcon class="size-4" aria-hidden="true" />
+			</span>
+			securepass
+		</a>
+		<nav class="flex items-center gap-1">
+			<Button
+				variant="ghost"
+				size="icon"
+				href="https://github.com/devharshthakur"
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="GitHub"
+			>
+				<GithubIcon height="18" class="size-5" />
+			</Button>
+			<Button variant="ghost" size="sm" href={resolve('/about')}>About</Button>
+		</nav>
+	</div>
 </header>

@@ -22,8 +22,10 @@
 				<p class="text-xs font-semibold tracking-[0.2em] text-primary uppercase">
 					Your private password vault
 				</p>
-				<h1 class="text-5xl font-semibold tracking-tight sm:text-7xl">securepass</h1>
-				<p class="max-w-lg text-lg leading-8 text-muted-foreground sm:text-xl">
+				<h1 class="text-5xl font-semibold tracking-normal sm:text-8xl">securepass</h1>
+				<p
+					class="max-w-lg leading-8 font-medium tracking-tighter text-muted-foreground sm:text-lg"
+				>
 					Your passwords, encrypted and always within reach.
 				</p>
 			</div>

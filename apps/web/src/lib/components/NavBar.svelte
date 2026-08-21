@@ -6,13 +6,13 @@
 </script>
 
 <header>
-	<div class="flex items-center justify-between px-6 py-3">
+	<div class="flex items-center justify-between px-6 py-4">
 		<a
 			href={resolve('/')}
-			class="flex items-center gap-2.5 text-sm font-semibold tracking-tight"
+			class="flex items-center gap-2.5 text-base font-semibold tracking-tight"
 		>
-			<span class="flex size-8 items-center justify-center rounded-md bg-muted/50">
-				<GalleryVerticalEndIcon class="size-4" aria-hidden="true" />
+			<span class="flex size-9 items-center justify-center rounded-md bg-muted/50">
+				<GalleryVerticalEndIcon class="size-5" aria-hidden="true" />
 			</span>
 			securepass
 		</a>
@@ -25,9 +25,11 @@
 				rel="noopener noreferrer"
 				aria-label="GitHub"
 			>
-				<GithubIcon height="18" class="size-5" />
+				<GithubIcon height="20" class="size-6" />
 			</Button>
-			<Button variant="ghost" size="sm" href={resolve('/about')}>About</Button>
+			<Button class="text-base" variant="ghost" size="sm" href={resolve('/about')}
+				>About</Button
+			>
 		</nav>
 	</div>
 </header>

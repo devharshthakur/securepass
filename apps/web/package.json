@@ -23,7 +23,6 @@
 	},
 	"devDependencies": {
 		"@fontsource/ibm-plex-mono": "5.3.0",
-		"@iconify/svelte": "5.2.2",
 		"@internationalized/date": "3.12.3",
 		"@lucide/svelte": "1.33.0",
 		"@packages/eslint-config": "workspace:*",
@@ -49,9 +48,12 @@
 		"vite": "8.2.2"
 	},
 	"dependencies": {
+		"@iconify-svelte/ic": "^1.0.3",
 		"@iconify-svelte/mdi": "1.0.2",
+		"@iconify-svelte/ri": "1.0.7",
 		"@packages/db": "workspace:*",
 		"@packages/shared": "workspace:*",
+		"@tanstack/svelte-form": "^1.33.5",
 		"better-auth": "^1.7.1",
 		"zod": "4.4.3"
 	}

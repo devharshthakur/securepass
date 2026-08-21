@@ -343,15 +343,24 @@ importers:
 
   apps/web:
     dependencies:
+      '@iconify-svelte/ic':
+        specifier: ^1.0.3
+        version: 1.0.3(svelte@5.56.9(@typescript-eslint/types@8.67.0))
       '@iconify-svelte/mdi':
         specifier: 1.0.2
         version: 1.0.2(svelte@5.56.9(@typescript-eslint/types@8.67.0))
+      '@iconify-svelte/ri':
+        specifier: 1.0.7
+        version: 1.0.7(svelte@5.56.9(@typescript-eslint/types@8.67.0))
       '@packages/db':
         specifier: workspace:*
         version: link:../../packages/db
       '@packages/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@tanstack/svelte-form':
+        specifier: ^1.33.5
+        version: 1.33.5(svelte@5.56.9(@typescript-eslint/types@8.67.0))
       better-auth:
         specifier: ^1.7.1
         version: 1.7.1(@prisma/client@7.9.1(prisma@7.9.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3))(typescript@6.0.3))(@sveltejs/kit@2.70.3(@sveltejs/vite-plugin-svelte@7.3.0(svelte@5.56.9(@typescript-eslint/types@8.67.0))(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)))(svelte@5.56.9(@typescript-eslint/types@8.67.0))(typescript@6.0.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)))(mysql2@3.15.3)(pg@8.23.0)(prisma@7.9.1(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(svelte@5.56.9(@typescript-eslint/types@8.67.0))
@@ -362,9 +371,6 @@ importers:
       '@fontsource/ibm-plex-mono':
         specifier: 5.3.0
         version: 5.3.0
-      '@iconify/svelte':
-        specifier: 5.2.2
-        version: 5.2.2(svelte@5.56.9(@typescript-eslint/types@8.67.0))
       '@internationalized/date':
         specifier: 3.12.3
         version: 3.12.3
@@ -822,18 +828,19 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
+  '@iconify-svelte/ic@1.0.3':
+    resolution: {integrity: sha512-CPTdnFfTqcJryp+kSKbOaaxop//ZVCaRP2pVzd+LOFtqFKwmD9AWH711EX2Gy81AP2HHIagAyKM5SKdiHdDlJQ==}
+
   '@iconify-svelte/mdi@1.0.2':
     resolution: {integrity: sha512-rZ+nkXXR/KKvxwqaiBnXywoi6horZx4JYwMGLaMTUWKtIKy/fsUAkYXZIV6/e2Ks2rHI4us+bCm5+zEnFYds3w==}
+
+  '@iconify-svelte/ri@1.0.7':
+    resolution: {integrity: sha512-LH1ZjpAcQS3W8r7LOoU2Izpq7G4ZMod8se0NRWaec2c+cXn4PxTJy1p5HPPhizyc7jMGrtEqLz62zwgsbKCN/Q==}
 
   '@iconify/css-svelte@1.0.1':
     resolution: {integrity: sha512-f9w1anXXBm48VjDEWDrGTybdiwnDTIChcUpBK/UtXR/AhNp/Co/VPp00t7dO93j+4Je0OwMKyc/HvI7Lpv3PKg==}
     peerDependencies:
       svelte: '>4.0.0'
-
-  '@iconify/svelte@5.2.2':
-    resolution: {integrity: sha512-XMXxD3nzH7yB68C3K4sNwzrJ1TBscODR0ZqCeNf0KGuEMCTSuCo0jHNDZ0o0iRXTylO41NSz/DWam/4atLG1yw==}
-    peerDependencies:
-      svelte: '>5.0.0'
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1573,6 +1580,31 @@ packages:
     resolution: {integrity: sha512-yYU8cogLeSh/ms2jh8Fj7jaba/EWa7Ja6GoUqYZaraEuCI5YS6ms6ObZgjjedm+jm6XZjdNRWBpPP6Z86oOxcw==}
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
+
+  '@tanstack/devtools-event-client@0.4.4':
+    resolution: {integrity: sha512-6T5Yop/793YI+H+5J8Hsyj4kCih9sl4t3ElLgKioW5hk3ocn+ZdSJ94tT7vL7uabxSugWYBZlOTMPzEw2puvQw==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  '@tanstack/form-core@1.33.5':
+    resolution: {integrity: sha512-3dfx9MBP0aq5sXKteikG629X9oviptrQj0IFRk9YGcb+lB7Kv5x8S17oOSk1wUWgjQZ4xVJEMbKwOAODymocgA==}
+
+  '@tanstack/pacer-lite@0.1.1':
+    resolution: {integrity: sha512-y/xtNPNt/YeyoVxE/JCx+T7yjEzpezmbb+toK8DDD1P4m7Kzs5YR956+7OKexG3f8aXgC3rLZl7b1V+yNUSy5w==}
+    engines: {node: '>=18'}
+
+  '@tanstack/store@0.11.1':
+    resolution: {integrity: sha512-mzTOBhypOuDJAy/D8n2MfUZ1HFkXnmSETviRyhqEC8LUE7/IZQExOTxMANj3KjTofYTkFNpBY67qaVrT41YccA==}
+
+  '@tanstack/svelte-form@1.33.5':
+    resolution: {integrity: sha512-GGlLocQwc4f15EoslfSKSiFwGy1Wz8CPTl6LXcykg4XUEGOmgs8Dg4/RjNyHeN/qrbIMemWuwzbt2wXBq50eXg==}
+    peerDependencies:
+      svelte: ^5.0.0
+
+  '@tanstack/svelte-store@0.12.1':
+    resolution: {integrity: sha512-ZFj8gyIWHZRYLv8RHp5jhnMhvw15g86KinotrUp9RfY7ygjkU3CcaMUytIdMJ4Xzq/9GqVlAphV9gFIGKRXWSw==}
+    peerDependencies:
+      svelte: ^5.0.0
 
   '@turbo/darwin-64@2.10.11':
     resolution: {integrity: sha512-v3R+1R/Ysozyo+p7Ri8MCIbndOvYt3DgPFrGLhrhQHfvyvbxyH3WyJj+A/2JTNmNleuAlh3JUyCV0iSVHIONTA==}
@@ -4065,18 +4097,25 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
+  '@iconify-svelte/ic@1.0.3(svelte@5.56.9(@typescript-eslint/types@8.67.0))':
+    dependencies:
+      '@iconify/css-svelte': 1.0.1(svelte@5.56.9(@typescript-eslint/types@8.67.0))
+    transitivePeerDependencies:
+      - svelte
+
   '@iconify-svelte/mdi@1.0.2(svelte@5.56.9(@typescript-eslint/types@8.67.0))':
     dependencies:
       '@iconify/css-svelte': 1.0.1(svelte@5.56.9(@typescript-eslint/types@8.67.0))
     transitivePeerDependencies:
       - svelte
 
-  '@iconify/css-svelte@1.0.1(svelte@5.56.9(@typescript-eslint/types@8.67.0))':
+  '@iconify-svelte/ri@1.0.7(svelte@5.56.9(@typescript-eslint/types@8.67.0))':
     dependencies:
-      '@iconify/types': 2.0.0
-      svelte: 5.56.9(@typescript-eslint/types@8.67.0)
+      '@iconify/css-svelte': 1.0.1(svelte@5.56.9(@typescript-eslint/types@8.67.0))
+    transitivePeerDependencies:
+      - svelte
 
-  '@iconify/svelte@5.2.2(svelte@5.56.9(@typescript-eslint/types@8.67.0))':
+  '@iconify/css-svelte@1.0.1(svelte@5.56.9(@typescript-eslint/types@8.67.0))':
     dependencies:
       '@iconify/types': 2.0.0
       svelte: 5.56.9(@typescript-eslint/types@8.67.0)
@@ -4642,6 +4681,29 @@ snapshots:
       '@tailwindcss/oxide': 4.3.3
       tailwindcss: 4.3.3
       vite: 8.2.2(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0)
+
+  '@tanstack/devtools-event-client@0.4.4': {}
+
+  '@tanstack/form-core@1.33.5':
+    dependencies:
+      '@tanstack/devtools-event-client': 0.4.4
+      '@tanstack/pacer-lite': 0.1.1
+      '@tanstack/store': 0.11.1
+
+  '@tanstack/pacer-lite@0.1.1': {}
+
+  '@tanstack/store@0.11.1': {}
+
+  '@tanstack/svelte-form@1.33.5(svelte@5.56.9(@typescript-eslint/types@8.67.0))':
+    dependencies:
+      '@tanstack/form-core': 1.33.5
+      '@tanstack/svelte-store': 0.12.1(svelte@5.56.9(@typescript-eslint/types@8.67.0))
+      svelte: 5.56.9(@typescript-eslint/types@8.67.0)
+
+  '@tanstack/svelte-store@0.12.1(svelte@5.56.9(@typescript-eslint/types@8.67.0))':
+    dependencies:
+      '@tanstack/store': 0.11.1
+      svelte: 5.56.9(@typescript-eslint/types@8.67.0)
 
   '@turbo/darwin-64@2.10.11':
     optional: true

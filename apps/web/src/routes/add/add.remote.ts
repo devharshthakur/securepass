@@ -9,8 +9,6 @@ export const addEntry = form(addBodySchema, async (data) => {
 	let response: Response;
 
 	try {
-		// Read the incoming request BEFORE any await (required in some runtimes).
-		// Forward the browser's cookie so the API sees the Better Auth session.
 		const event = getRequestEvent();
 
 		response = await fetch(`${apiUrl}/add`, {

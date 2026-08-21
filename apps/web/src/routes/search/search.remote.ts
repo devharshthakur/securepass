@@ -1,7 +1,7 @@
 import { searchBodySchema, searchResponseSchema } from '@packages/shared';
 import { error } from '@sveltejs/kit';
 import { query, getRequestEvent } from '$app/server';
-import { PUBLIC_API_URL } from '$app/env/public';
+import { PUBLIC_API_URL } from '$app/env/private';
 
 const apiUrl = PUBLIC_API_URL.replace(/\/+$/, '');
 
@@ -9,8 +9,6 @@ export const searchEntries = query(searchBodySchema, async (data) => {
 	let response: Response;
 
 	try {
-		// Read the incoming request BEFORE any await (required in some runtimes).
-		// Forward the browser's cookie so the API sees the Better Auth session.
 		const event = getRequestEvent();
 
 		response = await fetch(`${apiUrl}/search`, {

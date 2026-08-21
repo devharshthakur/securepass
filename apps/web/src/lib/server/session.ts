@@ -10,6 +10,10 @@ export async function getSession(event: RequestEvent) {
 		}
 	});
 
+	if (response.status >= 500) {
+		throw new Error(`Session service returned ${response.status}`);
+	}
+
 	if (!response.ok) return null;
 
 	return response.json();

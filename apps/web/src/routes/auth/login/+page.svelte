@@ -10,6 +10,17 @@
 	import GithubIcon from '@iconify-svelte/mdi/github';
 	import GoogleIcon from '@iconify-svelte/mdi/google';
 	import { authClient } from '$lib/auth/client.js';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
+	import { z } from 'zod';
+	import { FieldError } from '$lib/components/ui/field/index.js';
+
+	const emailValidator = z.email('Enter a valid email address');
+	const passwordValidator = z.string().min(8, 'Password must be at least 8 characters');
+
+	let serverError = $state('');
+	let submitting = $state(false);
 
 	const form = createForm(() => ({
 		defaultValues: {
@@ -17,8 +28,31 @@
 			password: ''
 		},
 		onSubmit: async ({ value }) => {
-			// TODO: Submit login values to the authentication endpoint.
-			void value;
+			serverError = '';
+			submitting = true;
+
+			try {
+				const { error } = await authClient.signIn.email({
+					email: value.email,
+					password: value.password
+				});
+
+				if (error) {
+					serverError = error.message ?? 'Unable to sign in. Please try again.';
+					return;
+				}
+
+				const redirectTo = page.url.searchParams.get('redirectTo');
+				const target =
+					redirectTo && redirectTo.startsWith('/') && !redirectTo.startsWith('//')
+						? redirectTo
+						: '/home';
+
+				// `target` is a runtime-validated in-app path; `resolve` only prepends the app base path.
+				await goto(resolve(target as '/home'));
+			} finally {
+				submitting = false;
+			}
 		}
 	}));
 
@@ -27,11 +61,11 @@
 	}
 
 	function handleGoogleLogin() {
-		void authClient.signIn.social({ provider: 'google', callbackURL: '/' });
+		void authClient.signIn.social({ provider: 'google', callbackURL: resolve('/home') });
 	}
 
 	function handleGithubLogin() {
-		void authClient.signIn.social({ provider: 'github', callbackURL: '/' });
+		void authClient.signIn.social({ provider: 'github', callbackURL: resolve('/home') });
 	}
 
 	let showPassword = $state(false);
@@ -59,11 +93,11 @@
 						<p
 							class="text-left text-sm leading-normal font-normal text-muted-foreground group-has-data-[orientation=horizontal]/field:text-balance last:mt-0 nth-last-2:-mt-1 [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary [[data-variant=legend]+&]:-mt-1.5"
 						>
-							Don't have an account? <a href="##">Sign up</a>
+							Don't have an account? <a href={resolve('/auth/signup')}>Sign up</a>
 						</p>
 					</div>
 				</Field.Field>
-				<form.Field name="email">
+				<form.Field name="email" validators={{ onChange: emailValidator }}>
 					{#snippet children(field)}
 						<Field.Field>
 							<Field.Label for={field.name}>Email</Field.Label>
@@ -78,10 +112,13 @@
 								onblur={field.handleBlur}
 								oninput={(event) => field.handleChange(getInputValue(event))}
 							/>
+							<FieldError
+								errors={field.state.meta.errors.filter((e) => e !== undefined)}
+							/>
 						</Field.Field>
 					{/snippet}
 				</form.Field>
-				<form.Field name="password">
+				<form.Field name="password" validators={{ onChange: passwordValidator }}>
 					{#snippet children(field)}
 						<Field.Field>
 							<Field.Label for={field.name}>Password</Field.Label>
@@ -114,10 +151,18 @@
 									</InputGroup.Button>
 								</InputGroup.Addon>
 							</InputGroup.Root>
+							<FieldError
+								errors={field.state.meta.errors.filter((e) => e !== undefined)}
+							/>
 						</Field.Field>
 					{/snippet}
 				</form.Field>
-				<Button type="submit">Login</Button>
+				{#if serverError}
+					<FieldError errors={[{ message: serverError }]} />
+				{/if}
+				<Button type="submit" disabled={submitting}>
+					{submitting ? 'Logging in…' : 'Login'}
+				</Button>
 				<Field.Separator>Or</Field.Separator>
 				<Field.Field class="grid w-full gap-4 sm:grid-cols-2">
 					<Button variant="outline" type="button" onclick={handleGoogleLogin}>

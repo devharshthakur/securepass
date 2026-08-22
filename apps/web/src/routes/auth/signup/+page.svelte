@@ -10,6 +10,18 @@
 	import GithubIcon from '@iconify-svelte/mdi/github';
 	import GoogleIcon from '@iconify-svelte/mdi/google';
 	import { resolve } from '$app/paths';
+	import { goto } from '$app/navigation';
+	import { authClient } from '$lib/auth/client.js';
+	import { z } from 'zod';
+	import { FieldError } from '$lib/components/ui/field/index.js';
+
+	const nameValidator = z.string().min(1, 'Name is required');
+	const emailValidator = z.email('Enter a valid email address');
+	const passwordValidator = z.string().min(8, 'Password must be at least 8 characters');
+
+	let serverError = $state('');
+	let submitting = $state(false);
+	let showPassword = $state(false);
 
 	const form = createForm(() => ({
 		defaultValues: {
@@ -18,8 +30,28 @@
 			password: ''
 		},
 		onSubmit: async ({ value }) => {
-			// TODO: Submit sign up values to the authentication endpoint.
-			void value;
+			serverError = '';
+			submitting = true;
+
+			try {
+				const { error } = await authClient.signUp.email({
+					name: value.name,
+					email: value.email,
+					password: value.password
+				});
+
+				if (error) {
+					serverError =
+						error.status === 422
+							? 'An account with this email already exists. Try logging in instead.'
+							: (error.message ?? 'Unable to sign up. Please try again.');
+					return;
+				}
+
+				await goto(resolve('/home'));
+			} finally {
+				submitting = false;
+			}
 		}
 	}));
 
@@ -28,14 +60,12 @@
 	}
 
 	function handleGoogleLogin() {
-		// todo
+		void authClient.signIn.social({ provider: 'google', callbackURL: resolve('/home') });
 	}
 
 	function handleGithubLogin() {
-		// todo
+		void authClient.signIn.social({ provider: 'github', callbackURL: resolve('/home') });
 	}
-
-	let showPassword = $state(false);
 </script>
 
 <main class="flex flex-1 items-center justify-center px-4 sm:px-6">
@@ -54,9 +84,9 @@
 							<div class="flex size-8 items-center justify-center rounded-md">
 								<GalleryVerticalEndIcon class="size-6" />
 							</div>
-							<span class="sr-only">Acme Inc.</span>
+							<span class="sr-only">Securepass Inc.</span>
 						</a>
-						<h1 class="text-xl font-bold">Create your Acme Inc. account</h1>
+						<h1 class="text-xl font-bold">Create your Securepass account</h1>
 						<p
 							class="text-left text-sm leading-normal font-normal text-muted-foreground group-has-data-[orientation=horizontal]/field:text-balance last:mt-0 nth-last-2:-mt-1 [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary [[data-variant=legend]+&]:-mt-1.5"
 						>
@@ -64,7 +94,7 @@
 						</p>
 					</div>
 				</Field.Field>
-				<form.Field name="name">
+				<form.Field name="name" validators={{ onChange: nameValidator }}>
 					{#snippet children(field)}
 						<Field.Field>
 							<Field.Label for={field.name}>Name</Field.Label>
@@ -79,10 +109,13 @@
 								onblur={field.handleBlur}
 								oninput={(event) => field.handleChange(getInputValue(event))}
 							/>
+							<FieldError
+								errors={field.state.meta.errors.filter((e) => e !== undefined)}
+							/>
 						</Field.Field>
 					{/snippet}
 				</form.Field>
-				<form.Field name="email">
+				<form.Field name="email" validators={{ onChange: emailValidator }}>
 					{#snippet children(field)}
 						<Field.Field>
 							<Field.Label for={field.name}>Email</Field.Label>
@@ -97,10 +130,13 @@
 								onblur={field.handleBlur}
 								oninput={(event) => field.handleChange(getInputValue(event))}
 							/>
+							<FieldError
+								errors={field.state.meta.errors.filter((e) => e !== undefined)}
+							/>
 						</Field.Field>
 					{/snippet}
 				</form.Field>
-				<form.Field name="password">
+				<form.Field name="password" validators={{ onChange: passwordValidator }}>
 					{#snippet children(field)}
 						<Field.Field>
 							<Field.Label for={field.name}>Password</Field.Label>
@@ -133,10 +169,18 @@
 									</InputGroup.Button>
 								</InputGroup.Addon>
 							</InputGroup.Root>
+							<FieldError
+								errors={field.state.meta.errors.filter((e) => e !== undefined)}
+							/>
 						</Field.Field>
 					{/snippet}
 				</form.Field>
-				<Button type="submit">Sign up</Button>
+				{#if serverError}
+					<FieldError errors={[{ message: serverError }]} />
+				{/if}
+				<Button type="submit" disabled={submitting}>
+					{submitting ? 'Signing up…' : 'Sign up'}
+				</Button>
 				<Field.Separator>Or</Field.Separator>
 				<Field.Field class="grid w-full gap-4 sm:grid-cols-2">
 					<Button variant="outline" type="button" onclick={handleGoogleLogin}>

@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import GalleryVerticalEndIcon from '@lucide/svelte/icons/gallery-vertical-end';
+	import { authClient } from '$lib/auth/client';
 	import { Button } from '$lib/components/ui/button';
+
+	const session = authClient.useSession();
 </script>
 
 <svelte:head>
@@ -13,7 +16,7 @@
 </svelte:head>
 
 <main class="flex flex-1 items-center justify-center px-6">
-	<div class="flex w-full max-w-2xl flex-col items-center gap-8 text-center">
+	<div class="mb-36 flex w-full max-w-2xl flex-col items-center gap-8 text-center">
 		<div class="flex flex-col items-center gap-8">
 			<div class="flex size-10 items-center justify-center rounded-md border bg-muted/50">
 				<GalleryVerticalEndIcon class="size-6" aria-hidden="true" />
@@ -32,7 +35,19 @@
 		</div>
 
 		<div class="flex flex-col gap-3 sm:flex-row">
-			<Button href={resolve('/auth/login')} size="lg" class="px-6">Login</Button>
+			{#if $session.data}
+				<Button
+					size="lg"
+					class="px-6"
+					onclick={async () => {
+						await authClient.signOut();
+					}}
+				>
+					Logout
+				</Button>
+			{:else}
+				<Button href={resolve('/auth/login')} size="lg" class="px-6">Login</Button>
+			{/if}
 			<Button href={resolve('/about')} variant="outline" size="lg">Learn more</Button>
 		</div>
 	</div>

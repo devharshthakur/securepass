@@ -45,10 +45,13 @@
 				>
 					Logout
 				</Button>
+				<Button href={resolve('/home')} variant="outline" size="lg" class="px-6">
+					Go to vault
+				</Button>
 			{:else}
 				<Button href={resolve('/auth/login')} size="lg" class="px-6">Login</Button>
+				<Button href={resolve('/about')} variant="outline" size="lg">Learn more</Button>
 			{/if}
-			<Button href={resolve('/about')} variant="outline" size="lg">Learn more</Button>
 		</div>
 	</div>
 </main>

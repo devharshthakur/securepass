@@ -32,8 +32,7 @@
 			</p>
 			<p class="leading-7 text-pretty text-muted-foreground">
 				Started as a cryptography college project, securepass pairs a SvelteKit front end
-				with an Express API, Better Auth sessions, and PostgreSQL at its core — a small
-				stack built to prove that security and simplicity can coexist.
+				with an Express API, Better Auth sessions, and PostgreSQL at its core.
 			</p>
 		</div>
 	</div>

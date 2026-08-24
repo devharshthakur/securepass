@@ -13,6 +13,7 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
+    "clean": "turbo run clean",
     "prepare": "husky",
     "db:start": "docker compose -f packages/db/docker-compose.yml up -d",
     "db:stop": "docker compose -f packages/db/docker-compose.yml down",
@@ -33,7 +34,7 @@
   },
   "devDependencies": {
     "@types/node": "26.2.0",
-    "eslint": "10.8.1",
+    "eslint": "10.9.0",
     "husky": "9.1.7",
     "lint-staged": "17.3.0",
     "prettier": "3.9.6",

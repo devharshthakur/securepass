@@ -9,7 +9,8 @@
 		"typecheck": "tsc --project tsconfig.json --noEmit",
 		"check": "tsc --project tsconfig.json --noEmit && eslint .",
 		"lint": "eslint .",
-		"format": "prettier --write --ignore-unknown --list-different ."
+		"format": "prettier --write --ignore-unknown --list-different .",
+		"clean": "rm -rf node_modules build"
 	},
 	"lint-staged": {
 		"*.{js,ts}": [
@@ -19,8 +20,10 @@
 		"*.{json,md}": "prettier --write"
 	},
 	"dependencies": {
+		"@better-auth/prisma-adapter": "^1.7.1",
 		"@packages/db": "workspace:*",
 		"@packages/shared": "workspace:*",
+		"better-auth": "^1.7.1",
 		"cors": "2.8.6",
 		"dotenv": "17.4.2",
 		"express": "5.2.1",

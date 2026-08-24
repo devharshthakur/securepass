@@ -8,7 +8,7 @@
 </svelte:head>
 
 <main class="mb-32 flex flex-1 flex-col items-center justify-center gap-6 px-6 text-center">
-	<div class="flex w-full max-w-xl flex-col items-center gap-8">
+	<div class="flex w-full max-w-xl flex-col items-center gap-5">
 		<div class="flex flex-col items-center gap-3">
 			<div class="flex size-10 items-center justify-center rounded-md border bg-muted/50">
 				<GalleryVerticalEndIcon class="size-6" aria-hidden="true" />
@@ -22,15 +22,15 @@
 		<div class="flex flex-col gap-4">
 			<p class="leading-7 font-semibold tracking-tight text-pretty sm:text-lg">
 				securepass is a simple yet secure password manager. Keep all your logins organised
-				and easily accessible — encrypted, always within reach.
+				and easily accessible encrypted, always within reach.
 			</p>
-			<p class="leading-7 text-pretty text-muted-foreground">
+			<p class="leading-6 text-pretty text-muted-foreground">
 				Every credential is sealed with AES-256-GCM before it ever touches the database,
 				using a fresh random IV for each entry. The browser never sees a secret in plaintext
-				— encryption and decryption live entirely on the server, and only your authenticated
+				encryption and decryption live entirely on the server, and only your authenticated
 				session can unlock what is yours.
 			</p>
-			<p class="leading-7 text-pretty text-muted-foreground">
+			<p class="leading-6 text-pretty text-muted-foreground">
 				Started as a cryptography college project, securepass pairs a SvelteKit front end
 				with an Express API, Better Auth sessions, and PostgreSQL at its core.
 			</p>
